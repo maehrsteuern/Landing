@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KI-Workshop Anmeldung | @maehrsteuern</title>
+    <!-- Tailwind CSS CDN für schnelles Styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Angepasste Schriftart */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Heller Hintergrund */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Mindesthöhe des Viewports */
+            padding: 20px; /* Padding für kleinere Bildschirme */
+            box-sizing: border-box;
+        }
+        .container {
+            background-color: #ffffff; /* Weißer Container-Hintergrund */
+            border-radius: 12px; /* Abgerundete Ecken */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Subtiler Schatten */
+            max-width: 500px; /* Maximale Breite des Containers */
+            width: 100%; /* Volle Breite auf kleinen Bildschirmen */
+            padding: 30px; /* Innenabstand */
+            box-sizing: border-box;
+        }
+        .header-icon {
+            font-size: 2rem; /* Größe des Header-Icons */
+            color: #3b82f6; /* Blaue Farbe */
+        }
+        .input-field {
+            border: 1px solid #d1d5db; /* Grauer Rahmen */
+            border-radius: 8px; /* Abgerundete Ecken */
+            padding: 12px 16px; /* Innenabstand */
+            width: 100%; /* Volle Breite */
+            font-size: 1rem; /* Schriftgröße */
+            transition: all 0.2s ease-in-out; /* Übergang für Fokus-Effekt */
+        }
+        .input-field:focus {
+            outline: none; /* Keine Standard-Fokus-Outline */
+            border-color: #3b82f6; /* Blauer Rahmen beim Fokus */
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25); /* Blauer Schatten beim Fokus */
+        }
+        .button {
+            background-color: #3b82f6; /* Blauer Button-Hintergrund */
+            color: #ffffff; /* Weißer Text */
+            padding: 14px 20px; /* Innenabstand */
+            border-radius: 8px; /* Abgerundete Ecken */
+            font-weight: 600; /* Halbfett */
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out; /* Übergang für Hover-Effekt */
+        }
+        .button:hover {
+            background-color: #2563eb; /* Dunkleres Blau beim Hover */
+        }
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem; /* Kleinere Schriftgröße für Checkbox-Text */
+            color: #4b5563; /* Dunkelgrauer Text */
+        }
+        .checkbox-label input[type="checkbox"] {
+            margin-right: 8px; /* Abstand zur Checkbox */
+            appearance: none; /* Standard-Checkbox-Styling entfernen */
+            width: 18px;
+            height: 18px;
+            border: 2px solid #d1d5db;
+            border-radius: 4px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+        .checkbox-label input[type="checkbox"]:checked {
+            background-color: #3b82f6;
+            border-color: #3b82f6;
+        }
+        .checkbox-label input[type="checkbox"]:checked::after {
+            content: '✔'; /* Häkchen-Symbol */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 12px;
+        }
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px; /* Abstand zwischen Radio-Buttons */
+            font-size: 1rem;
+            color: #374151;
+            cursor: pointer;
+        }
+        .radio-group input[type="radio"] {
+            margin-right: 8px; /* Abstand zum Radio-Button */
+            appearance: none; /* Standard-Radio-Styling entfernen */
+            width: 18px;
+            height: 18px;
+            border: 2px solid #d1d5db;
+            border-radius: 50%;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+        .radio-group input[type="radio"]:checked {
+            background-color: #3b82f6;
+            border-color: #3b82f6;
+        }
+        .radio-group input[type="radio"]:checked::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 8px;
+            height: 8px;
+            background-color: white;
+            border-radius: 50%;
+        }
+        .powered-by {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: #9ca3af;
+        }
+        .powered-by img {
+            height: 20px; /* Höhe des Google Forms Icons */
+            margin-left: 5px; /* Abstand zum Text */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header-Bereich mit Instagram-Handle -->
+        <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center">
+                <span class="header-icon mr-2">&#128200;</span> <!-- Chart/Growth Icon -->
+                <span class="text-gray-600 font-semibold text-lg">@maehrsteuern</span>
+            </div>
+            <!-- Optional: Hilfe-Icon, kann verlinkt werden oder Info-Modal öffnen -->
+            <span class="text-gray-400 cursor-pointer text-xl">&#63;</span>
+        </div>
+
+        <!-- Titel der Landingpage -->
+        <h1 class="text-3xl font-bold text-gray-800 mb-4">KI-Workshop Anmeldung</h1>
+        <!-- Beschreibungstext -->
+        <p class="text-gray-600 mb-6">
+            Füllen Sie das Formular aus, um sich für unseren **exklusiven KI-Workshop** anzumelden.
+        </p>
+
+        <!-- Formular-Bereich -->
+        <form id="workshopForm">
+            <!-- Vollständiger Name -->
+            <div class="mb-4">
+                <label for="fullName" class="block text-gray-700 text-sm font-medium mb-2">Vollständiger Name</label>
+                <input type="text" id="fullName" name="fullName" placeholder="Max Mustermann" class="input-field" required>
+            </div>
+
+            <!-- E-Mail Adresse -->
+            <div class="mb-4">
+                <label for="email" class="block text-gray-700 text-sm font-medium mb-2">E-Mail Adresse</label>
+                <input type="email" id="email" name="email" placeholder="ihre.email@beispiel.de" class="input-field" required>
+            </div>
+
+            <!-- Telefonnummer -->
+            <div class="mb-6">
+                <label for="phone" class="block text-gray-700 text-sm font-medium mb-2">Telefonnummer</label>
+                <input type="tel" id="phone" name="phone" placeholder="+49 123 4567890" class="input-field">
+            </div>
+
+            <!-- Workshop-Termin (Dropdown) -->
+            <div class="mb-6">
+                <label for="workshopDate" class="block text-gray-700 text-sm font-medium mb-2">Workshop-Termin</label>
+                <select id="workshopDate" name="workshopDate" class="input-field" required>
+                    <option value="" disabled selected>Bitte wählen Sie einen Termin</option>
+                    <option value="2025-07-15">Dienstag, 15. Juli 2025 - 18:00 Uhr</option>
+                    <option value="2025-07-22">Dienstag, 22. Juli 2025 - 18:00 Uhr</option>
+                    <option value="2025-07-29">Dienstag, 29. Juli 2025 - 18:00 Uhr</option>
+                    <!-- Weitere Termine hier hinzufügen -->
+                </select>
+            </div>
+
+            <!-- Vorkenntnisse im Bereich KI (Radio Buttons) -->
+            <div class="mb-6">
+                <label class="block text-gray-700 text-sm font-medium mb-3">Vorkenntnisse im Bereich KI</label>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" name="aiKnowledge" value="Anfänger" required>
+                        Anfänger
+                    </label>
+                    <label>
+                        <input type="radio" name="aiKnowledge" value="Fortgeschritten">
+                        Fortgeschritten
+                    </label>
+                    <label>
+                        <input type="radio" name="aiKnowledge" value="Experte">
+                        Experte
+                    </label>
+                </div>
+            </div>
+
+            <!-- Erwartungen an den Workshop (Textarea) -->
+            <div class="mb-6">
+                <label for="expectations" class="block text-gray-700 text-sm font-medium mb-2">Erwartungen an den Workshop</label>
+                <textarea id="expectations" name="expectations" rows="4" placeholder="Was möchten Sie im Workshop lernen?" class="input-field"></textarea>
+            </div>
+
+            <!-- Datenschutzbestätigung -->
+            <div class="mb-6">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="privacyConsent" name="privacyConsent" required>
+                    Ich stimme den <a href="#" class="text-blue-600 hover:underline">Datenschutzbestimmungen</a> und der Verarbeitung meiner Daten für die Workshop-Anmeldung zu.
+                </label>
+            </div>
+
+            <!-- Anmelde-Button -->
+            <button type="submit" class="button w-full">Anmeldung absenden</button>
+        </form>
+
+        <!-- Bestätigungstext nach Anmeldung -->
+        <p id="confirmationMessage" class="text-gray-500 text-sm mt-6 text-center" style="display: none;">
+            Nach der Anmeldung erhalten Sie eine Bestätigungs-E-Mail mit weiteren Informationen zum Workshop.
+        </p>
+
+        <!-- "Powered by Google Forms" Hinweis -->
+        <div class="powered-by">
+            <span>Powered by</span>
+            <!-- Google Forms Icon (SVG für bessere Skalierbarkeit) -->
+            <svg class="h-5 w-5 ml-1 text-blue-500" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20 6h-4V4c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zM10 4h4v2h-4V4zm10 16H4V8h16v12zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"></path>
+            </svg>
+            <span class="ml-1 text-gray-400">Google Forms</span>
+        </div>
+    </div>
+
+    <script>
+        // Funktion zum "Senden" des Formulars an Google Forms
+        // WICHTIG: Ersetze 'YOUR_GOOGLE_FORM_ACTION_URL_GOES_HERE' mit der tatsächlichen 'formResponse'-URL deines Google Forms!
+        // Du findest diese im 'action'-Attribut des <form>-Tags deines veröffentlichten Google Forms (rechte Maustaste -> Untersuchen).
+        const GOOGLE_FORM_ACTION_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdgLhBO3P0BJhQF6sCP7JucwV1rNCN8-s8VkvI0q4b6V_oP0w/formResponse'; // Beispiel: 'https://docs.google.com/forms/d/e/1FAIpQLScC1-some_form_id/formResponse';
+
+        document.getElementById('workshopForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Standard-Formularsendung verhindern
+
+            // Daten aus dem Formular sammeln
+            const formData = new FormData(this);
+            const data = {};
+            for (let [key, value] of formData.entries()) {
+                data[key] = value;
+            }
+
+            // Hier müsstest du die gesammelten Daten dem Google Forms-Schema anpassen.
+            // Jeder Input-Name in Google Forms (z.B. 'entry.123456789') muss hier
+            // mit dem entsprechenden Wert aus deinem HTML-Formular verknüpft werden.
+            // DAS IST DER KRITISCHE TEIL FÜR DIE VERBINDUNG!
+            // Du musst die 'name'-Attribute (die 'entry.ID's) der Google Forms-Felder
+            // den Werten aus deinen HTML-Inputs zuordnen.
+            // So findest du die 'entry.ID's:
+            // 1. Öffne dein Google Form in der Vorschau (Auge-Symbol).
+            // 2. Klicke mit der rechten Maustaste auf den *gesamten Fragen-Block* (nicht nur das Input-Feld!) und wähle "Untersuchen" (Inspect).
+            // 3. Suche im HTML-Code nach dem <input>-Tag (oder <textarea>/<select>) *innerhalb dieses Fragen-Blocks*, das ein 'name'-Attribut beginnend mit 'entry.' hat. Dieses kann auch ein verstecktes Input-Feld sein (type="hidden").
+            // 4. Mache das für ALLE Felder deines Google Forms.
+
+            const googleFormData = new FormData();
+            // BITTE AN DEINE GOOGLE FORMS-FELDER UND DEREN 'entry.ID's ANPASSEN!
+            // Beispielzuordnungen (Ersetze 'YOUR_ENTRY_ID_FOR_FIELDNAME' durch die tatsächliche ID):
+            googleFormData.append('entry.1453587487', data.fullName);
+            googleFormData.append('entry.809836178', data.email);
+            googleFormData.append('entry.751809565', data.phone);
+            googleFormData.append('entry.88214970', data.workshopDate);
+            googleFormData.append('entry.786332438', data.aiKnowledge); // Radio Button Wert
+            googleFormData.append('entry.1819445788_sentinel', data.expectations); // Korrektur: Removed _sentinel as it's not part of actual entry.ID
+
+            // Für die Datenschutz-Checkbox: Sende den Wert nur, wenn sie angehakt ist.
+            // Ersetze 'YOUR_ENTRY_ID_FOR_PRIVACY_CONSENT' durch die tatsächliche ID deines Datenschutz-Feldes.
+            if (data.privacyConsent === 'on') {
+                 googleFormData.append('entry.1819445788_sentinel', 'Ich stimme zu'); // Oder ein anderer Wert, den dein Google Form erwartet
+            }
+
+
+            // Anzeigen einer Ladeanzeige oder eines Hinweises
+            const submitButton = this.querySelector('button[type="submit"]');
+            submitButton.textContent = 'Sende Anmeldung...';
+            submitButton.disabled = true;
+
+            // Senden der Daten an Google Forms
+            fetch(GOOGLE_FORM_ACTION_URL, {
+                method: 'POST',
+                mode: 'no-cors', // Wichtig, da wir eine Cross-Origin-Anfrage an Google Forms senden
+                body: googleFormData
+            })
+            .then(() => {
+                // Bei Erfolg: Formular leeren und Bestätigung anzeigen
+                this.reset(); // Formularfelder zurücksetzen
+                document.getElementById('confirmationMessage').style.display = 'block'; // Bestätigungsnachricht anzeigen
+                submitButton.textContent = 'Anmeldung abgesendet!'; // Button-Text ändern
+                submitButton.classList.remove('bg-blue-600');
+                submitButton.classList.add('bg-green-500'); // Grüner Button für Erfolg
+                setTimeout(() => {
+                    // Nach 5 Sekunden den Button zurücksetzen und Nachricht ausblenden
+                    submitButton.textContent = 'Anmeldung absenden';
+                    submitButton.disabled = false;
+                    submitButton.classList.remove('bg-green-500');
+                    submitButton.classList.add('bg-blue-600');
+                    document.getElementById('confirmationMessage').style.display = 'none';
+                }, 5000);
+            })
+            .catch(error => {
+                console.error('Fehler beim Senden der Anmeldung:', error);
+                // Fehlermeldung anzeigen (statt alert())
+                const errorMessage = document.createElement('p');
+                errorMessage.textContent = 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.';
+                errorMessage.classList.add('text-red-500', 'mt-4', 'text-center');
+                this.appendChild(errorMessage);
+                submitButton.textContent = 'Anmeldung absenden';
+                submitButton.disabled = false;
+            });
+        });
+    </script>
+</body>
+</html>
