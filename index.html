@@ -152,33 +152,34 @@
         <h1 class="text-3xl font-bold text-gray-800 mb-4">KI-Workshop Anmeldung</h1>
         <!-- Beschreibungstext -->
         <p class="text-gray-600 mb-6">
-            Füllen Sie das Formular aus, um sich für unseren exklusiven KI-Workshop anzumelden.
+            Füllen Sie das Formular aus, um sich für unseren **exklusiven KI-Workshop** anzumelden.
         </p>
 
         <!-- Formular-Bereich -->
-        <form id="workshopForm">
+        <!-- Das Formular wird jetzt ein verstecktes iframe als Target haben -->
+        <form id="workshopForm" action="https://docs.google.com/forms/d/e/1FAIpQLSdgLhBO3P0BJhQF6sCP7JucwV1rNCN8-s8VkvI0q4b6V_oP0w/formResponse" method="POST" target="hidden_iframe">
             <!-- Vollständiger Name -->
             <div class="mb-4">
                 <label for="fullName" class="block text-gray-700 text-sm font-medium mb-2">Vollständiger Name</label>
-                <input type="text" id="fullName" name="fullName" placeholder="Max Mustermann" class="input-field" required>
+                <input type="text" id="fullName" name="entry.1453587487" placeholder="Max Mustermann" class="input-field" required>
             </div>
 
             <!-- E-Mail Adresse -->
             <div class="mb-4">
                 <label for="email" class="block text-gray-700 text-sm font-medium mb-2">E-Mail Adresse</label>
-                <input type="email" id="email" name="email" placeholder="ihre.email@beispiel.de" class="input-field" required>
+                <input type="email" id="email" name="entry.809836178" placeholder="ihre.email@beispiel.de" class="input-field" required>
             </div>
 
             <!-- Telefonnummer -->
             <div class="mb-6">
                 <label for="phone" class="block text-gray-700 text-sm font-medium mb-2">Telefonnummer</label>
-                <input type="tel" id="phone" name="phone" placeholder="+49 123 4567890" class="input-field">
+                <input type="tel" id="phone" name="entry.751809565" placeholder="+49 123 4567890" class="input-field">
             </div>
 
             <!-- Workshop-Termin (Dropdown) -->
             <div class="mb-6">
                 <label for="workshopDate" class="block text-gray-700 text-sm font-medium mb-2">Workshop-Termin</label>
-                <select id="workshopDate" name="workshopDate" class="input-field" required>
+                <select id="workshopDate" name="entry.88214970" class="input-field" required>
                     <option value="" disabled selected>Bitte wählen Sie einen Termin</option>
                     <option value="2025-07-15">Dienstag, 15. Juli 2025 - 18:00 Uhr</option>
                     <option value="2025-07-22">Dienstag, 22. Juli 2025 - 18:00 Uhr</option>
@@ -192,15 +193,15 @@
                 <label class="block text-gray-700 text-sm font-medium mb-3">Vorkenntnisse im Bereich KI</label>
                 <div class="radio-group">
                     <label>
-                        <input type="radio" name="aiKnowledge" value="Anfänger" required>
+                        <input type="radio" name="entry.786332438" value="Anfänger" required>
                         Anfänger
                     </label>
                     <label>
-                        <input type="radio" name="aiKnowledge" value="Fortgeschritten">
+                        <input type="radio" name="entry.786332438" value="Fortgeschritten">
                         Fortgeschritten
                     </label>
                     <label>
-                        <input type="radio" name="aiKnowledge" value="Experte">
+                        <input type="radio" name="entry.786332438" value="Experte">
                         Experte
                     </label>
                 </div>
@@ -209,13 +210,14 @@
             <!-- Erwartungen an den Workshop (Textarea) -->
             <div class="mb-6">
                 <label for="expectations" class="block text-gray-700 text-sm font-medium mb-2">Erwartungen an den Workshop</label>
-                <textarea id="expectations" name="expectations" rows="4" placeholder="Was möchten Sie im Workshop lernen?" class="input-field"></textarea>
+                <textarea id="expectations" name="entry.163800705" rows="4" placeholder="Was möchten Sie im Workshop lernen?" class="input-field"></textarea>
             </div>
 
             <!-- Datenschutzbestätigung -->
             <div class="mb-6">
                 <label class="checkbox-label">
-                    <input type="checkbox" id="privacyConsent" name="privacyConsent" required>
+                    <!-- ACHTUNG: Die entry.ID für Checkboxen kann anders sein, wenn Google Forms spezielle Werte erwartet -->
+                    <input type="checkbox" id="privacyConsent" name="entry.1819445788" value="Ich stimme zu" required>
                     Ich stimme den <a href="#" class="text-blue-600 hover:underline">Datenschutzbestimmungen</a> und der Verarbeitung meiner Daten für die Workshop-Anmeldung zu.
                 </label>
             </div>
@@ -240,89 +242,56 @@
         </div>
     </div>
 
+    <!-- Versteckter iFrame für die Formularübermittlung -->
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(window.submitted) { handleFormSubmission(); }"></iframe>
+
     <script>
-        // Funktion zum "Senden" des Formulars an Google Forms
-        // WICHTIG: Ersetze 'YOUR_GOOGLE_FORM_ACTION_URL_GOES_HERE' mit der tatsächlichen 'formResponse'-URL deines Google Forms!
-        // Du findest diese im 'action'-Attribut des <form>-Tags deines veröffentlichten Google Forms (rechte Maustaste -> Untersuchen).
-        const GOOGLE_FORM_ACTION_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdgLhBO3P0BJhQF6sCP7JucwV1rNCN8-s8VkvI0q4b6V_oP0w/formResponse'; // Beispiel: 'https://docs.google.com/forms/d/e/1FAIpQLScC1-some_form_id/formResponse';
+        // Setze eine Variable, um zu verfolgen, ob das Formular abgesendet wurde
+        // Diese Variable muss global zugänglich sein, damit der iframe sie im onload-Event nutzen kann.
+        window.submitted = false; 
 
         document.getElementById('workshopForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Standard-Formularsendung verhindern
+            // Standard-Formularsendung nicht verhindern, sondern dem iframe überlassen
+            // event.preventDefault(); // Diese Zeile ist jetzt auskommentiert oder entfernt
 
-            // Daten aus dem Formular sammeln
-            const formData = new FormData(this);
-            const data = {};
-            for (let [key, value] of formData.entries()) {
-                data[key] = value;
-            }
-
-            // Hier müsstest du die gesammelten Daten dem Google Forms-Schema anpassen.
-            // Jeder Input-Name in Google Forms (z.B. 'entry.123456789') muss hier
-            // mit dem entsprechenden Wert aus deinem HTML-Formular verknüpft werden.
-            // DAS IST DER KRITISCHE TEIL FÜR DIE VERBINDUNG!
-            // Du musst die 'name'-Attribute (die 'entry.ID's) der Google Forms-Felder
-            // den Werten aus deinen HTML-Inputs zuordnen.
-            // So findest du die 'entry.ID's:
-            // 1. Öffne dein Google Form in der Vorschau (Auge-Symbol).
-            // 2. Klicke mit der rechten Maustaste auf den *gesamten Fragen-Block* (nicht nur das Input-Feld!) und wähle "Untersuchen" (Inspect).
-            // 3. Suche im HTML-Code nach dem <input>-Tag (oder <textarea>/<select>) *innerhalb dieses Fragen-Blocks*, das ein 'name'-Attribut beginnend mit 'entry.' hat. Dieses kann auch ein verstecktes Input-Feld sein (type="hidden").
-            // 4. Mache das für ALLE Felder deines Google Forms.
-
-            const googleFormData = new FormData();
-            // BITTE AN DEINE GOOGLE FORMS-FELDER UND DEREN 'entry.ID's ANPASSEN!
-            // Beispielzuordnungen (Ersetze 'YOUR_ENTRY_ID_FOR_FIELDNAME' durch die tatsächliche ID):
-            googleFormData.append('entry.1453587487', data.fullName);
-            googleFormData.append('entry.809836178', data.email);
-            googleFormData.append('entry.751809565', data.phone);
-            googleFormData.append('entry.88214970', data.workshopDate);
-            googleFormData.append('entry.786332438', data.aiKnowledge); // Radio Button Wert
-            googleFormData.append('entry.1819445788', data.expectations); // Korrektur: Removed _sentinel as it's not part of actual entry.ID
-
-            // Für die Datenschutz-Checkbox: Sende den Wert nur, wenn sie angehakt ist.
-            // Ersetze 'YOUR_ENTRY_ID_FOR_PRIVACY_CONSENT' durch die tatsächliche ID deines Datenschutz-Feldes.
-            if (data.privacyConsent === 'on') {
-                 googleFormData.append('entry.1819445788', 'Ich stimme zu'); // Oder ein anderer Wert, den dein Google Form erwartet
-            }
-
+            window.submitted = true; // Markiere, dass das Formular abgesendet wird
 
             // Anzeigen einer Ladeanzeige oder eines Hinweises
             const submitButton = this.querySelector('button[type="submit"]');
             submitButton.textContent = 'Sende Anmeldung...';
             submitButton.disabled = true;
 
-            // Senden der Daten an Google Forms
-            fetch(GOOGLE_FORM_ACTION_URL, {
-                method: 'POST',
-                mode: 'no-cors', // Wichtig, da wir eine Cross-Origin-Anfrage an Google Forms senden
-                body: googleFormData
-            })
-            .then(() => {
-                // Bei Erfolg: Formular leeren und Bestätigung anzeigen
-                this.reset(); // Formularfelder zurücksetzen
+            // Das Formular wird nun direkt an den iframe gesendet
+            // setTimeout ist hier immer noch nötig, da wir keine direkte Bestätigung vom iframe bekommen
+            // und der Erfolg der Übermittlung erst nach dem Laden des iframes (potenziell ein Redirect) feststeht
+            // Die handleFormSubmission() Funktion wird durch das onload-Event des iframes aufgerufen
+        });
+
+        // Diese Funktion wird aufgerufen, wenn der iframe geladen wird (nach der Formularübermittlung)
+        function handleFormSubmission() {
+            if (window.submitted) {
+                const form = document.getElementById('workshopForm');
+                const submitButton = form.querySelector('button[type="submit"]');
+
+                form.reset(); // Formularfelder zurücksetzen
                 document.getElementById('confirmationMessage').style.display = 'block'; // Bestätigungsnachricht anzeigen
                 submitButton.textContent = 'Anmeldung abgesendet!'; // Button-Text ändern
                 submitButton.classList.remove('bg-blue-600');
                 submitButton.classList.add('bg-green-500'); // Grüner Button für Erfolg
+
+                // Setze die Variable zurück
+                window.submitted = false;
+
+                // Nach 5 Sekunden den Button zurücksetzen und Nachricht ausblenden
                 setTimeout(() => {
-                    // Nach 5 Sekunden den Button zurücksetzen und Nachricht ausblenden
                     submitButton.textContent = 'Anmeldung absenden';
                     submitButton.disabled = false;
                     submitButton.classList.remove('bg-green-500');
                     submitButton.classList.add('bg-blue-600');
                     document.getElementById('confirmationMessage').style.display = 'none';
                 }, 5000);
-            })
-            .catch(error => {
-                console.error('Fehler beim Senden der Anmeldung:', error);
-                // Fehlermeldung anzeigen (statt alert())
-                const errorMessage = document.createElement('p');
-                errorMessage.textContent = 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.';
-                errorMessage.classList.add('text-red-500', 'mt-4', 'text-center');
-                this.appendChild(errorMessage);
-                submitButton.textContent = 'Anmeldung absenden';
-                submitButton.disabled = false;
-            });
-        });
+            }
+        }
     </script>
 </body>
 </html>
